@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Battle Results</title>
+    <style>
+        body {
+            background-color: #2196F3; /* Blue background color */
+            color: white; /* Text color */
+            font-family: Arial, sans-serif;
+            text-align: center; /* Center-align text */
+            padding: 50px;
+        }
+        h1, h2 {
+            margin-bottom: 20px;
+        }
+        p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Battle Results</h1>
+    <p>Winner: {{ winner }}</p>
+    <h2>Pokemon 1</h2>
+    <p>Name: {{ pokemon1.name }}</p>
+    <p>ID: {{ pokemon1.id }}</p>
+    <p>Stats: {{ pokemon1.stats }}</p>
+    <h2>Pokemon 2</h2>
+    <p>Name: {{ pokemon2.name }}</p>
+    <p>ID: {{ pokemon2.id }}</p>
+    <p>Stats: {{ pokemon2.stats }}</p>
+</body>
+</html>
