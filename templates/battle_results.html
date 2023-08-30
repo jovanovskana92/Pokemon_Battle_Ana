@@ -9,6 +9,32 @@
             font-family: Arial, sans-serif;
             text-align: center; /* Center-align text */
             padding: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .battle-results {
+            background-color: #333; /* Dark background color for battle results */
+            padding: 20px;
+            margin: 20px;
+            width: 70%; /* Set a width for the battle results section */
+        }
+        .pokemon-info {
+            background-color: #333; /* Dark background color for Pokémon info sections */
+            padding: 20px;
+            width: 35%; /* Set a width for the Pokémon info sections */
+        }
+        .info-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .battle-info {
+            background-color: #333; /* Dark background color for battle info */
+            padding: 20px;
+            width: 70%; /* Set a width for the battle info section */
+            margin: 20px auto; /* Center-align battle info section */
         }
         h1, h2 {
             margin-bottom: 20px;
@@ -16,18 +42,39 @@
         p {
             margin: 5px 0;
         }
+        .winner {
+            font-size: 24px;
+            color: #FFD700; /* Gold color for winner */
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
-    <h1>Battle Results</h1>
-    <p>Winner: {{ winner }}</p>
-    <h2>Pokemon 1</h2>
-    <p>Name: {{ pokemon1.name }}</p>
-    <p>ID: {{ pokemon1.id }}</p>
-    <p>Stats: {{ pokemon1.stats }}</p>
-    <h2>Pokemon 2</h2>
-    <p>Name: {{ pokemon2.name }}</p>
-    <p>ID: {{ pokemon2.id }}</p>
-    <p>Stats: {{ pokemon2.stats }}</p>
+    <div class="battle-results">
+        <h1>Battle Results</h1>
+        <p class="winner">Winner: {{ winner }}</p>
+    </div>
+    <div class="info-container">
+        <div class="pokemon-info">
+            <h2>Pokemon 1</h2>
+            <p>Name: {{ pokemon1.name }}</p>
+            <p>ID: {{ pokemon1.id }}</p>
+            <p>Stats: {{ pokemon1.stats }}</p>
+        </div>
+        <div class="pokemon-info">
+            <h2>Pokemon 2</h2>
+            <p>Name: {{ pokemon2.name }}</p>
+            <p>ID: {{ pokemon2.id }}</p>
+            <p>Stats: {{ pokemon2.stats }}</p>
+        </div>
+    </div>
+    <div class="battle-info">
+        <h2>Battle Info</h2>
+        {% for info in battle_info %}
+        <p>{{ info[pokemon1.name+'_move']['move_name'] }} used by {{ pokemon1.name }} - Remaining HP: {{ info[pokemon1.name+'_move']['hp_after_move'] }}</p>
+        <p>{{ info[pokemon2.name+'_move']['move_name'] }} used by {{ pokemon2.name }} - Remaining HP: {{ info[pokemon2.name+'_move']['hp_after_move'] }}</p>
+        {% endfor %}
+    </div>
 </body>
 </html>

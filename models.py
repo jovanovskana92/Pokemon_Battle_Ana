@@ -1,5 +1,7 @@
-class Pokemon:
-    def __init__(self, name, id, stats):
-        self.name = name
-        self.id = id
-        self.stats = stats
+from pydantic import BaseModel
+
+
+class Pokemon(BaseModel):
+    name: str
+    id: int
+    stats: dict

@@ -1,5 +1,5 @@
 import pytest
-from poke import app
+from poke import app, PokemonBattle
 from unittest.mock import Mock, patch
 
 
@@ -31,41 +31,23 @@ def test_start_battle_error(mock_get, client):
     assert b'error' in response.data
 
 
-def test_successful_battle_response(client):
-    data = {
-        'pokemon1': 'pikachu',
-        'pokemon2': 'eevee'
+def test_simulate_battle():
+    # Sample changes dictionary for testing
+    changes = {
+        "move1": 10,
+        "move2": 15,
+        "move3": 20,
     }
 
-    response = client.post('/battle', data=data)
-    assert response.status_code == 200
+    # Create a PokemonBattle instance
+    battle = PokemonBattle("pikachu", "eevee")
 
-    expected_response = {
-        "pokemon1": {
-            "id": 25,
-            "name": "pikachu",
-            "stats": {
-                "attack": 55,
-                "defense": 40,
-                "hp": 35,
-                "special-attack": 50,
-                "special-defense": 50,
-                "speed": 90
-            }
-        },
-        "pokemon2": {
-            "id": 133,
-            "name": "eevee",
-            "stats": {
-                "attack": 55,
-                "defense": 50,
-                "hp": 55,
-                "special-attack": 45,
-                "special-defense": 65,
-                "speed": 55
-            }
-        },
-        "winner": "eevee"
-    }
+    # Call simulate_battle with the sample changes
+    battle_info = []
+    winner = battle.simulate_battle(changes=changes, battle_info=battle_info)
 
-    assert response.json == expected_response
+    # Split the winner_and_hp string to get the winner's name
+    winner_name = winner.split(" is winner ")[0]
+
+    # Assert the winner's name
+    assert winner_name in ["pikachu", "eevee"]
