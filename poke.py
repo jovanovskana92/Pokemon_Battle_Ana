@@ -137,14 +137,18 @@ def start_battle():
             'id': battle.pokemon2.id,
             'stats': battle.pokemon2.stats
         }
-        # response_data = {
-        #     "pokemon1": pokemon1_dict,
-        #     "pokemon2": pokemon2_dict,
-        #     "winner": winner
-        # }
-        # return jsonify(battle_info, response_data), 200
-        return render_template('battle_results.html', winner=winner, battle_info=battle_info, pokemon1=pokemon1_dict,
-                               pokemon2=pokemon2_dict)
+        response_data = {
+            "pokemon1": pokemon1_dict,
+            "pokemon2": pokemon2_dict,
+            "winner": winner,
+            "battle_info": battle_info
+        }
+        # Check if the request accepts JSON format
+        if 'application/json' in request.headers.get('Accept', ''):
+            return jsonify(response_data), 200
+        else:
+            return render_template('battle_results.html', winner=winner, battle_info=battle_info, pokemon1=pokemon1_dict
+                                   ,pokemon2=pokemon2_dict)
     except (ValueError, Exception) as e:
         return jsonify({"error": str(e)}), 500
 
